@@ -6,3 +6,10 @@ CREATE TABLE `Eleves` (
   `Ville` varchar(100) NOT NULL,
   `ClassID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `Classes` (
+  `ClassID` int(11) NOT NULL,
+  `Enseignant` varchar(100) NOT NULL
+  
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

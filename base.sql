@@ -43,3 +43,9 @@ ALTER TABLE `Activites`
   
 ALTER TABLE `Repartition`
   ADD PRIMARY KEY (`ElevID`,`ActID`);
+
+ALTER TABLE `Eleves`
+  ADD FOREIGN KEY (`ClassID`)
+  REFERENCES `Classes`(`ClassID`);
+
+

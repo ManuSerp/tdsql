@@ -18,3 +18,4 @@ INSERT INTO `Eleves`(`ElevID`,`Nom`,`Age`,`Ville`,`ClassID`) VALUES
 (3,'Augustin',17,'Blois',1),
 (4,'Gregoire',9,'Paris',2),
 (5,'Paul',16,'Marseille',2);
+

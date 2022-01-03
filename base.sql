@@ -29,3 +29,17 @@ CREATE TABLE `Repartition` (
   `ActID` int(11) NOT NULL
   
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+ALTER TABLE `Eleves`
+  ADD PRIMARY KEY (`ElevID`);
+
+ALTER TABLE `Classes`
+  ADD PRIMARY KEY (`ClassID`);
+  
+ALTER TABLE `Activites`
+  ADD PRIMARY KEY (`ActID`);
+  
+ALTER TABLE `Repartition`
+  ADD PRIMARY KEY (`ElevID`,`ActID`);

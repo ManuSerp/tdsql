@@ -23,3 +23,9 @@ CREATE TABLE `Activites` (
   `Jour` int(11) NOT NULL
   
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `Repartition` (
+  `ElevID` int(11) NOT NULL,
+  `ActID` int(11) NOT NULL
+  
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

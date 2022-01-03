@@ -49,3 +49,11 @@ ALTER TABLE `Eleves`
   REFERENCES `Classes`(`ClassID`);
 
 
+ALTER TABLE `Repartition`
+  ADD FOREIGN KEY (`ElevID`)
+  REFERENCES `Eleves`(`ElevID`);
+ 
+ALTER TABLE `Repartition`
+  ADD FOREIGN KEY (`ActID`)
+  REFERENCES `Activites`(`ActID`);
+ 

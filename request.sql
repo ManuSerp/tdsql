@@ -28,7 +28,7 @@ GROUP BY Nom) AS B WHERE B.Presence = (SELECT COUNT(DISTINCT Jour) From Activite
 
 /*q7*/
 
-SELECT *
+SELECT Nom
 FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
 WHERE Ville=Lieu
 
@@ -62,4 +62,11 @@ GROUP BY Ville, Theme) as tb
 WHERE hab = (SELECT MAX(hab) FROM (SELECT Theme,COUNT(Z.ElevID) as hab
 FROM Eleves as Z JOIN (SELECT ElevID,Theme from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
 GROUP BY Ville, Theme)as m WHERE m.Theme=tb.Theme)
+
+/*q14*/
+
+SELECT *
+FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
+WHERE Ville=Lieu
+
 

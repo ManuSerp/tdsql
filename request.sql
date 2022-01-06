@@ -16,3 +16,12 @@ SELECT DISTINCT Nom As Eleves FROM
 (SELECT Nom, Jour, COUNT(Jour) as Occurence
 FROM Eleves as Z JOIN (SELECT ElevID,Jour from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
 GROUP BY Nom,Jour) AS A WHERE A.Occurence > 1
+
+/*q6*/
+
+SELECT Nom FROM
+(SELECT Nom,COUNT(Jour) as Presence FROM
+(SELECT Nom,Jour
+FROM Eleves as Z JOIN (SELECT ElevID,Jour from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
+GROUP BY Nom,Jour) AS A
+GROUP BY Nom) AS B WHERE B.Presence = (SELECT COUNT(DISTINCT Jour) From Activites)

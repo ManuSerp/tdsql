@@ -41,3 +41,15 @@ SELECT Activites,effectif FROM (SELECT GROUP_CONCAT(Theme) AS Activites,effectif
 SELECT ActID,COUNT(ElevID) as effectif FROM Repartition
 GROUP BY ActID) AS B ON A.ActID=B.ActID) AS F
 GROUP BY effectif) AS G WHERE G.ce >1
+
+/*q10*/
+SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
+SELECT ActID,COUNT(ElevID) as effectif FROM Repartition
+GROUP BY ActID ) AS B ON A.ActID=B.ActID  ORDER BY effectif DESC, A.ActID
+
+/*q11*/
+SELECT Enseignant
+from classes as C 
+JOIN (SELECT ClassID,COUNT(ClassID) as effectif FROM eleves GROUP BY ClassID ) as D
+on C.ClassID=D.ClassID
+where effectif > (select AVG(ListeEleves) from (SELECT COUNT(ClassID) as ListeEleves FROM Eleves GROUP BY ClassID) as A)

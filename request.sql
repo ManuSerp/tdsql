@@ -28,6 +28,8 @@ GROUP BY Nom) AS B WHERE B.Presence = (SELECT COUNT(DISTINCT Jour) From Activite
 
 
 /*q8*/
-SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
+SELECT Activites,effectif FROM (SELECT GROUP_CONCAT(Theme) AS Activites,effectif,COUNT(effectif) AS ce FROM
+(SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
 SELECT ActID,COUNT(ElevID) as effectif FROM Repartition
-GROUP BY ActID) AS B ON A.ActID=B.ActID
+GROUP BY ActID) AS B ON A.ActID=B.ActID) AS F
+GROUP BY effectif) AS G WHERE G.ce >1

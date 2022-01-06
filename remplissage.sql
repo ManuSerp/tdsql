@@ -17,8 +17,9 @@ INSERT INTO `Eleves`(`ElevID`,`Nom`,`Age`,`Ville`,`ClassID`) VALUES
 (2,'Martin',14,'Amiens',1),
 (3,'Augustin',17,'Blois',1),
 (4,'Gregoire',9,'Paris',2),
-(5,'Paul',16,'Marseille',2);
+(5,'Paul',16,'Marseille',2),
+(6,'Robert',17,'Le Mans',0);
 
 INSERT INTO `Repartition`(`ElevID`,`ActID`) VALUES
-(0,0),(1,0),(2,1),(3,1),(4,1),(5,2),(4,3),(1,3);
+(0,0),(1,0),(2,1),(3,1),(4,1),(5,2),(4,3),(1,3),(6,0),(6,1),(6,2);
 

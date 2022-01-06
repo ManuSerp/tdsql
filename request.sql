@@ -60,7 +60,7 @@ JOIN (SELECT ClassID,COUNT(ClassID) as effectif FROM eleves GROUP BY ClassID ) a
 on C.ClassID=D.ClassID
 where effectif > (select AVG(ListeEleves) from (SELECT COUNT(ClassID) as ListeEleves FROM Eleves GROUP BY ClassID) as A)
 
- 
+
  
 /*q12*/
 
@@ -83,6 +83,11 @@ GROUP BY Ville, Theme)as m WHERE m.Theme=tb.Theme)
 SELECT Nom,jour,Theme
 FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu,Theme from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
 WHERE Ville=Lieu
+
+
+/*q15*/
+SELECT Lieu, COUNT(ElevID)/(SELECT COUNT(ActID) FROM repartition) from activites join repartition on activites.ActID=repartition.ActID GROUP by Lieu
+ 
 
 
 /*q17*/

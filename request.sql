@@ -41,3 +41,9 @@ SELECT Activites,effectif FROM (SELECT GROUP_CONCAT(Theme) AS Activites,effectif
 SELECT ActID,COUNT(ElevID) as effectif FROM Repartition
 GROUP BY ActID) AS B ON A.ActID=B.ActID) AS F
 GROUP BY effectif) AS G WHERE G.ce >1
+
+/*q9*/
+/*je sais pas comment faire aucune idée/*/
+SELECT Nom,Theme
+FROM Eleves as Z JOIN (SELECT ElevID,Theme from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
+ 

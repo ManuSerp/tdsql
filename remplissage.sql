@@ -1,9 +1,12 @@
 
 INSERT INTO `Activites`(`ActID`,`Lieu`,`Bus`,`Theme`,`Jour`) VALUES
-(0,'Stade',1,'Rugby',1),
-(1,'Piscine',2,'Natation',3),
-(2,'LaMeuh',1,'PAF',6),
-(3,'CityStadium',2,'Foot',1);
+(0,'Metz',1,'Rugby',1),
+(1,'Paris',2,'Natation',3),
+(2,'Amiens',1,'PAF',6),
+(3,'Marseille',2,'Foot',1),
+(4,'Marseille',1,'Pétanque',4),
+(5,'Nancy',3,'Foot',1),
+(6,'Lyon',2,'Basket',12);
 
 INSERT INTO `Classes`(`ClassID`,`Enseignant`) VALUES
 (0,'Maria'),

@@ -68,3 +68,18 @@ GROUP BY Ville, Theme)as m WHERE m.Theme=tb.Theme)
 SELECT Nom,jour,Theme
 FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu,Theme from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
 WHERE Ville=Lieu
+
+
+/*q17*/
+
+
+SELECT cleff.ClassID,Theme FROM
+(SELECT ClassID, Theme, eff FROM 
+(SELECT  ClassID,ActID,COUNT(A.ElevID) as eff
+FROM Eleves AS A JOIN Repartition AS B ON A.ElevID=B.ElevID
+GROUP BY ClassID,ActID) as effect JOIN Activites AS K ON effect.ActID=K.ActID) as acteff
+JOIN
+(SELECT ClassID,COUNT(ElevID) as classe_effectif FROM Eleves
+GROUP BY ClassID) as cleff
+ON acteff.ClassID = cleff.ClassID
+WHERE eff=classe_effectif

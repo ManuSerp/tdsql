@@ -54,4 +54,5 @@ JOIN (SELECT ClassID,COUNT(ClassID) as effectif FROM eleves GROUP BY ClassID ) a
 on C.ClassID=D.ClassID
 where effectif > (select AVG(ListeEleves) from (SELECT COUNT(ClassID) as ListeEleves FROM Eleves GROUP BY ClassID) as A)
 
-/*q13*/
+/*q15*/
+SELECT Lieu, COUNT(ElevID)/(SELECT COUNT(ActID) FROM repartition) from activites join repartition on activites.ActID=repartition.ActID GROUP by Lieu

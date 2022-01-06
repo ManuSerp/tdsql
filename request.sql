@@ -25,3 +25,9 @@ SELECT Nom FROM
 FROM Eleves as Z JOIN (SELECT ElevID,Jour from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
 GROUP BY Nom,Jour) AS A
 GROUP BY Nom) AS B WHERE B.Presence = (SELECT COUNT(DISTINCT Jour) From Activites)
+
+
+/*q8*/
+SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
+SELECT ActID,COUNT(ElevID) as effectif FROM Repartition
+GROUP BY ActID) AS B ON A.ActID=B.ActID

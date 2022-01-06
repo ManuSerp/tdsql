@@ -53,3 +53,5 @@ from classes as C
 JOIN (SELECT ClassID,COUNT(ClassID) as effectif FROM eleves GROUP BY ClassID ) as D
 on C.ClassID=D.ClassID
 where effectif > (select AVG(ListeEleves) from (SELECT COUNT(ClassID) as ListeEleves FROM Eleves GROUP BY ClassID) as A)
+
+/*q13*/

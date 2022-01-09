@@ -90,10 +90,11 @@ SELECT Lieu, COUNT(ElevID)/(SELECT COUNT(ActID) FROM repartition) from activites
 /*q16*/
 SELECT X,Y,nb FROM((
 SELECT e1.ElevID as X, e2.ElevID as Y from Eleves as e1,Eleves as e2 
-WHERE e1.ClassID!=e2.ClassID) as T),
+WHERE e1.ClassID!=e2.ClassID) as T)
+WHERE 
 (SELECT COUNT(T1.ActID) as nb
 from (SELECT ActID from  Repartition where ElevID=X ) as T1 
-INNER JOIN (SELECT ActID from  Repartition where ElevID=Y ) as T2 ON T1.ActID=T2.ActID)
+INNER JOIN (SELECT ActID from  Repartition where ElevID=Y ) as T2 ON T1.ActID=T2.ActID) >0
 
 
 

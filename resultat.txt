@@ -53,8 +53,6 @@ Foot 2
 /*q11*/
 Enseignant
 Maria
-
-
  
 /*q12*/
 

@@ -50,7 +50,7 @@ FROM Eleves as Z JOIN (SELECT ElevID,Theme from Repartition as C JOIN Activites 
 /*q12*/
 
 SELECT Theme,MIN(Age) as Min,MAX(Age) as Max, AVG(Age) as Moyenne, -MIN(Age)+MAX(Age) as Amplitude
-    
+FROM Eleves as Z JOIN (SELECT ElevID,Theme from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
 GROUP BY Theme
 
 /*q13*/

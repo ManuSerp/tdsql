@@ -30,8 +30,10 @@ Robin
 Gregoire
 
 /*q8*/
-Activites effectif
-PAF,Foot 2
+
+Activites	effectif	
+Pétanque,Basket	1	
+PAF,Foot	2	
 
 
 /*q9*/

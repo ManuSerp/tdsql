@@ -53,7 +53,7 @@ puis on choisit celle qui sont plus d'une de même effectif. */
 
 SELECT Activites,effectif FROM (SELECT GROUP_CONCAT(Theme) AS Activites,effectif,COUNT(effectif) AS ce FROM
 (SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
-SELECT ActID,COUNT(ElevID) as effen veut les activitésctif FROM Repartition
+SELECT ActID,COUNT(ElevID) as effectif FROM Repartition
 GROUP BY ActID) AS B ON A.ActID=B.ActID) AS F
 GROUP BY effectif) AS G WHERE G.ce >1
 

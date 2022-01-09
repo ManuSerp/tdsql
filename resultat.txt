@@ -7,10 +7,13 @@ Dumont Gregoire,Paul
 
 /*q4*/
 
+
 Jour ListeDesBus
 1 Bus n°1 : 3 élèves,Bus n°2 : 2 élèves
-3 Bus n°2 : 5 élèves
+3 Bus n°2 : 4 élèves
+4 Bus n°1 : 1 élèves
 6 Bus n°1 : 2 élèves
+12 Bus n°2 : 1 élèves
 
 /*q5*/
 
@@ -31,9 +34,9 @@ Gregoire
 
 /*q8*/
 
-Activites	effectif	
-Pétanque,Basket	1	
-PAF,Rugby	3	
+Activites effectif
+Pétanque,Basket 1
+PAF,Foot 2
 
 
 /*q9*/
@@ -44,7 +47,7 @@ Natation PAF
  
 /*q10*/
 Theme effectif 
-Natation 5 
+Natation 4 
 Rugby 3
 PAF 3
 Foot 2

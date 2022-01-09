@@ -47,7 +47,9 @@ WHERE Ville=Lieu
 
 /*q8*/
 
-
+/*   Par jointure entre Activites et Repartition on donnes les tables des effectifs de chaques activités, 
+puis on groupe la table par effectif pour avoir les activités de même effectif,avec un COUNT pour connaitre le nombre d'activités de même effectif, 
+puis on choisit celle qui sont plus d'une de même effectif. */
 
 SELECT Activites,effectif FROM (SELECT GROUP_CONCAT(Theme) AS Activites,effectif,COUNT(effectif) AS ce FROM
 (SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (

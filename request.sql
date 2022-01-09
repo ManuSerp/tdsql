@@ -41,10 +41,19 @@ GROUP BY effectif) AS G WHERE G.ce >1
 
 
 /*q9*/
-select ActID, LENGTH(GROUP_CONCAT(ElevID)) as nb_eleve
-from repartition
-GROUP by ActID  
-HAVING nb_eleve = (SELECT MAX(len) FROM (select ActID, LENGTH(GROUP_CONCAT(ElevID)) as len from repartition  GROUP by ActID   ) as T) 
+SELECT a1,a2 FROM(
+SELECT T1.ActID as a1, T2.ActID as a2, COUNT(T1.ElevID) as nb
+FROM (SELECT ElevID,ActID FROM repartition ) AS T1 ,(SELECT ElevID,ActID FROM repartition )AS T2 WHERE T1.ElevID=T2.ElevID
+GROUP BY T1.ActID,T2.ActID 
+HAVING a1!=a2) as temp
+WHERE nb=(SELECT MAX(nb) FROM (
+SELECT T1.ActID as a1, T2.ActID as a2, COUNT(T1.ElevID) as nb
+FROM (SELECT ElevID,ActID FROM repartition ) AS T1 ,(SELECT ElevID,ActID FROM repartition )AS T2 WHERE T1.ElevID=T2.ElevID
+GROUP BY T1.ActID,T2.ActID 
+HAVING a1!=a2) as temp1)
+
+/*On calcule le nombre d'élève partagé entre deux activité et on selectionne les pairs qui en ont le plus*/
+
 
  
 /*q10*/
@@ -88,15 +97,12 @@ WHERE Ville=Lieu
 SELECT Lieu, COUNT(ElevID)/(SELECT COUNT(ActID) FROM repartition) from activites join repartition on activites.ActID=repartition.ActID GROUP by Lieu
  
 /*q16*/
-SELECT X,Y,nb FROM((
-SELECT e1.ElevID as X, e2.ElevID as Y from Eleves as e1,Eleves as e2 
-WHERE e1.ClassID!=e2.ClassID) as T)
-WHERE 
-(SELECT COUNT(T1.ActID) as nb
-from (SELECT ActID from  Repartition where ElevID=X ) as T1 
-INNER JOIN (SELECT ActID from  Repartition where ElevID=Y ) as T2 ON T1.ActID=T2.ActID) >0
+(SELECT T1.ElevID as X,T2.ElevID as Y
+from (SELECT ActID,ElevID from Repartition ) as T1 INNER JOIN (SELECT ActID,ElevID from Repartition ) as T2 ON T1.ActID=T2.ActID
+WHERE T1.ElevID!=T2.ElevID)
 
 
+/*On réalise une intersection sur les actID, puis on trie le résultat pour éviter les doublons types X,Y =Y,X*/
 
 
 

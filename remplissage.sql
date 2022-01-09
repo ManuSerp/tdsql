@@ -23,5 +23,5 @@ INSERT INTO `Eleves`(`ElevID`,`Nom`,`Age`,`Ville`,`ClassID`) VALUES
 (6,'Robert',17,'Le Mans',0);
 
 INSERT INTO `Repartition`(`ElevID`,`ActID`) VALUES
-(0,0),(1,0),(2,1),(3,1),(4,1),(5,2),(4,3),(1,3),(6,0),(6,1),(6,2);
+(0,0),(1,0),(2,1),(3,1),(4,1),(5,2),(4,3),(1,3),(6,0),(6,1),(6,2),(4,2),(5,1);
  

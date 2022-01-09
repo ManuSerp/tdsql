@@ -32,9 +32,6 @@ SELECT DISTINCT Nom
 FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
 WHERE Ville=Lieu
 
-
-
-
 /*q8*/
 SELECT Activites,effectif FROM (SELECT GROUP_CONCAT(Theme) AS Activites,effectif,COUNT(effectif) AS ce FROM
 (SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
@@ -42,10 +39,27 @@ SELECT ActID,COUNT(ElevID) as effectif FROM Repartition
 GROUP BY ActID) AS B ON A.ActID=B.ActID) AS F
 GROUP BY effectif) AS G WHERE G.ce >1
 
+
 /*q9*/
-/*je sais pas comment faire aucune idée/*/
-SELECT Nom,Theme
-FROM Eleves as Z JOIN (SELECT ElevID,Theme from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
+select ActID, LENGTH(GROUP_CONCAT(ElevID)) as nb_eleve
+from repartition
+GROUP by ActID  
+HAVING nb_eleve = (SELECT MAX(len) FROM (select ActID, LENGTH(GROUP_CONCAT(ElevID)) as len from repartition  GROUP by ActID   ) as T) 
+
+ 
+/*q10*/
+SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
+SELECT ActID,COUNT(ElevID) as effectif FROM Repartition
+GROUP BY ActID ) AS B ON A.ActID=B.ActID  ORDER BY effectif DESC, A.ActID
+
+/*q11*/
+SELECT Enseignant
+from classes as C 
+JOIN (SELECT ClassID,COUNT(ClassID) as effectif FROM eleves GROUP BY ClassID ) as D
+on C.ClassID=D.ClassID
+where effectif > (select AVG(ListeEleves) from (SELECT COUNT(ClassID) as ListeEleves FROM Eleves GROUP BY ClassID) as A)
+
+
  
 /*q12*/
 
@@ -68,6 +82,21 @@ GROUP BY Ville, Theme)as m WHERE m.Theme=tb.Theme)
 SELECT Nom,jour,Theme
 FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu,Theme from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
 WHERE Ville=Lieu
+
+
+/*q15*/
+SELECT Lieu, COUNT(ElevID)/(SELECT COUNT(ActID) FROM repartition) from activites join repartition on activites.ActID=repartition.ActID GROUP by Lieu
+ 
+/*q16*/
+SELECT X,Y,nb FROM((
+SELECT e1.ElevID as X, e2.ElevID as Y from Eleves as e1,Eleves as e2 
+WHERE e1.ClassID!=e2.ClassID) as T),
+(SELECT COUNT(T1.ActID) as nb
+from (SELECT ActID from  Repartition where ElevID=X ) as T1 
+INNER JOIN (SELECT ActID from  Repartition where ElevID=Y ) as T2 ON T1.ActID=T2.ActID)
+
+
+
 
 
 /*q17*/

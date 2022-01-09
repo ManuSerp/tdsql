@@ -56,4 +56,5 @@ ALTER TABLE `Repartition`
 ALTER TABLE `Repartition`
   ADD FOREIGN KEY (`ActID`)
   REFERENCES `Activites`(`ActID`);
- 
+
+

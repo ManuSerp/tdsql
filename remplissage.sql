@@ -1,4 +1,3 @@
-
 INSERT INTO `Activites`(`ActID`,`Lieu`,`Bus`,`Theme`,`Jour`) VALUES
 (0,'Metz',1,'Rugby',1),
 (1,'Paris',2,'Natation',3),
@@ -25,4 +24,4 @@ INSERT INTO `Eleves`(`ElevID`,`Nom`,`Age`,`Ville`,`ClassID`) VALUES
 
 INSERT INTO `Repartition`(`ElevID`,`ActID`) VALUES
 (0,0),(1,0),(2,1),(3,1),(4,1),(5,2),(4,3),(1,3),(6,0),(6,1),(6,2);
-
+ 

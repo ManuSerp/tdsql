@@ -1,0 +1,99 @@
+/*q3*/
+
+Enseignant ListeEleves
+Maria Robin,Raoul,Robert
+Cotillon Martin,Augustin
+Dumont Gregoire,Paul
+
+/*q4*/
+
+Jour ListeDesBus
+1 Bus n°1 : 3 élèves,Bus n°2 : 2 élèves
+3 Bus n°2 : 4 élèves
+6 Bus n°1 : 2 élèves
+
+/*q5*/
+
+
+Eleves
+Raoul
+
+/*q6*/
+
+SELECT Nom FROM
+(SELECT Nom,COUNT(Jour) as Presence FROM
+(SELECT Nom,Jour
+FROM Eleves as Z JOIN (SELECT ElevID,Jour from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
+GROUP BY Nom,Jour) AS A
+GROUP BY Nom) AS B WHERE B.Presence = (SELECT COUNT(DISTINCT Jour) From Activites)
+
+/*q7*/
+
+SELECT DISTINCT Nom
+FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
+WHERE Ville=Lieu
+
+/*q8*/
+Activites effectif
+PAF,Foot 2
+
+
+/*q9*/
+ActID nb_eleve
+1    7
+
+ 
+/*q10*/
+Theme effectif 
+Natation 4 
+Rugby 3
+PAF 2
+Foot 2
+
+/*q11*/
+Enseignant
+Maria
+
+
+ 
+/*q12*/
+
+SELECT Theme,MIN(Age) as Min,MAX(Age) as Max, AVG(Age) as Moyenne, -MIN(Age)+MAX(Age) as Amplitude
+    
+GROUP BY Theme
+
+/*q13*/
+Theme Ville
+Natation Amiens
+Natation Blois
+Natation Le Mans
+PAF Le Mans
+Rugby Le Mans
+PAF Marseille
+Rugby Metz
+Foot Paris
+Natation Paris
+Rugby Paris
+
+
+/*q14*/
+
+
+
+
+/*q15*/
+Lieu COUNT(ElevID)/(SELECT COUNT(ActID) FROM repartition)
+CityStadium    0.1818
+LaMeuh    0.1818
+Piscine    0.3636
+Stade    0.2727
+ 
+/*q16*/
+
+
+
+/*q17*/
+
+ClassID Theme
+0 Rugby 
+1 Natation

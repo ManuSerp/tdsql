@@ -32,9 +32,6 @@ SELECT DISTINCT Nom
 FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
 WHERE Ville=Lieu
 
-
-
-
 /*q8*/
 SELECT Activites,effectif FROM (SELECT GROUP_CONCAT(Theme) AS Activites,effectif,COUNT(effectif) AS ce FROM
 (SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
@@ -44,9 +41,11 @@ GROUP BY effectif) AS G WHERE G.ce >1
 
 
 /*q9*/
-/*je sais pas comment faire aucune idée*/
-SELECT Nom,Theme
-FROM Eleves as Z JOIN (SELECT ElevID,Theme from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
+select ActID, LENGTH(GROUP_CONCAT(ElevID)) as nb_eleve
+from repartition
+GROUP by ActID  
+HAVING nb_eleve = (SELECT MAX(len) FROM (select ActID, LENGTH(GROUP_CONCAT(ElevID)) as len from repartition  GROUP by ActID   ) as T) 
+
  
 /*q10*/
 SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
@@ -88,6 +87,7 @@ WHERE Ville=Lieu
 /*q15*/
 SELECT Lieu, COUNT(ElevID)/(SELECT COUNT(ActID) FROM repartition) from activites join repartition on activites.ActID=repartition.ActID GROUP by Lieu
  
+/*q16*/
 
 
 /*q17*/

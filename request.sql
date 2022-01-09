@@ -1,12 +1,12 @@
 /*q3*/
-/* On groupe les élèves par ClassID pour obtenir l'effectif de chaque classes puis ont fait une jointure pour obtenir le professeur de chaque classes. */
+/* On groupe les élèves par ClassID pour obtenir l'effectif de chaque Classes puis ont fait une jointure pour obtenir le professeur de chaque Classes. */
 
 SELECT Enseignant, ListeEleves 
 FROM Classes AS C JOIN (SELECT ClassID, GROUP_CONCAT(Nom) as ListeEleves FROM Eleves GROUP BY ClassID) AS T 
 ON C.ClassID=T.ClassID
 
 /*q4*/
-/* on groupe les eleves par activités via une jointure entre Repartition et Activites puis on groupe le nombre d'élèves et le bus par jours*/ 
+/* on groupe les Eleves par activités via une jointure entre Repartition et Activites puis on groupe le nombre d'élèves et le bus par jours*/ 
 SELECT Jour, GROUP_CONCAT('Bus n°',Bus,' : ',  Nb,' élèves') AS ListeDesBus 
 FROM (SELECT ActID, COUNT(ElevID) as Nb FROM Repartition GROUP BY ActID) as C JOIN Activites AS A ON C.ActID=A.ActID
 GROUP BY Jour
@@ -86,7 +86,7 @@ GROUP BY ActID ) AS B ON A.ActID=B.ActID  ORDER BY effectif DESC, A.ActID
 /*q11*/
 
 /* 
-On calcule la moyenne par classes puis par jointure on trouve les enseignants
+On calcule la moyenne par Classes puis par jointure on trouve les enseignants
 */
 
 SELECT Enseignant
@@ -149,7 +149,7 @@ HAVING X<Y) as bf JOIN Eleves as bf2 ON bf.X=bf2.ElevID  JOIN Eleves as bf3 ON b
  puis on réalise une intersection entre les deux tables, puis on cherche les noms correspondants*/
 
 /*q17*/
-/*   On calcule l'effectif de chaque classes, on calcul l'effectif de chaque activités, on joint les deux tables et 
+/*   On calcule l'effectif de chaque Classes, on calcul l'effectif de chaque activités, on joint les deux tables et 
 on extrait le couple où les deux effectifs sont égaux  */
 
 SELECT cleff.ClassID,Theme FROM

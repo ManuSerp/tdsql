@@ -35,8 +35,9 @@ PAF,Foot 2
 
 
 /*q9*/
-ActID nb_eleve
-1    7
+a1 a2
+1 2
+
 
  
 /*q10*/
@@ -78,7 +79,6 @@ Rugby Paris
 /*q14*/
 
 
-
 Nom	Jour	Theme	
 Robin	1	Rugby	
 Gregoire	3	Natation	
@@ -93,7 +93,16 @@ Stade    0.2727
  
 /*q16*/
 
-
+X Y
+1 4
+2 4
+2 5
+2 6
+3 4
+3 5
+3 6
+4 6
+5 6
 
 /*q17*/
 

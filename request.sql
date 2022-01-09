@@ -53,7 +53,7 @@ puis on choisit celle qui sont plus d'une de même effectif. */
 
 SELECT Activites,effectif FROM (SELECT GROUP_CONCAT(Theme) AS Activites,effectif,COUNT(effectif) AS ce FROM
 (SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
-SELECT ActID,COUNT(ElevID) as effectif FROM Repartition
+SELECT ActID,COUNT(ElevID) as effen veut les activitésctif FROM Repartition
 GROUP BY ActID) AS B ON A.ActID=B.ActID) AS F
 GROUP BY effectif) AS G WHERE G.ce >1
 
@@ -76,13 +76,11 @@ HAVING a1<a2
 
  
 /*q10*/
-
+/*     On calcule le nombre d'élève par activités par jointure et groupe puis on order par effectif     */
 SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
 SELECT ActID,COUNT(ElevID) as effectif FROM Repartition
 GROUP BY ActID ) AS B ON A.ActID=B.ActID  ORDER BY effectif DESC, A.ActID
-SELECT Nom,jour,Theme
-FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu,Theme from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
-WHERE Ville=Lieu
+
 
 /*q11*/
 

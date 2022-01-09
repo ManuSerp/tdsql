@@ -118,13 +118,14 @@ FROM Eleves as Z JOIN (SELECT ElevID,Theme from Repartition as C JOIN Activites 
 GROUP BY Ville, Theme)as m WHERE m.Theme=tb.Theme)
 
 /*q14*/
-
+/* on choisit les élèves qui ont une activités dans leurs villes puis on donne le thème par jointure */
 SELECT Nom,jour,Theme
 FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu,Theme from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
 WHERE Ville=Lieu
 
 
 /*q15*/
+/* on calcule le rapport pour chaque lieu du nombre d'élèves pratiquant une activités sur le nombre d'actitivités totale */
 SELECT Lieu, COUNT(ElevID)/(SELECT COUNT(ActID) 
 FROM Repartition) from Activites NATURAL JOIN Repartition GROUP by Lieu
  
@@ -144,7 +145,8 @@ HAVING X<Y
 
 
 /*q17*/
-
+/*   On calcule l'effectif de chaque classes, on calcul l'effectif de chaque activités, on joint les deux tables et 
+on extrait le couple où les deux effectifs sont égaux  */
 
 SELECT cleff.ClassID,Theme FROM
 (SELECT ClassID, Theme, eff FROM 

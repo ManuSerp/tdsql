@@ -82,7 +82,11 @@ Rugby Paris
 
 
 /*q15*/
-SELECT Lieu, COUNT(ElevID)/(SELECT COUNT(ActID) FROM repartition) from activites join repartition on activites.ActID=repartition.ActID GROUP by Lieu
+Lieu COUNT(ElevID)/(SELECT COUNT(ActID) FROM repartition)
+CityStadium    0.1818
+LaMeuh    0.1818
+Piscine    0.3636
+Stade    0.2727
  
 /*q16*/
 

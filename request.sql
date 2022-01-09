@@ -1,16 +1,19 @@
 /*q3*/
+/* On groupe les eleves par ClassID pour obtenir l'effectif de chaques classes puis ont fait une jointure pour obtenir le professeur de chaque classes. */
 
 SELECT Enseignant, ListeEleves 
 FROM Classes AS C JOIN (SELECT ClassID, GROUP_CONCAT(Nom) as ListeEleves FROM Eleves GROUP BY ClassID) AS T 
 ON C.ClassID=T.ClassID
 
 /*q4*/
-
+/* on groupe les eleves par activites via une jointure entre repartition et activites puis on groupe le nombre d'eleves et le bus par jours*/ 
 SELECT Jour, GROUP_CONCAT('Bus n°',Bus,' : ',  Nb,' élèves') AS ListeDesBus 
 FROM (SELECT ActID, COUNT(ElevID) as Nb FROM Repartition GROUP BY ActID) as C JOIN Activites AS A ON C.ActID=A.ActID
 GROUP BY Jour
 
 /*q5*/
+/* on choisis fait une jointure de eleves et repartition puis une jointure sur activites
+ensuite on choisit les noms parmis les noms et jours des eleves groupés par jours et nom avec la conditions COUNT(jours)>1 */
 
 SELECT DISTINCT Nom As Eleves FROM
 (SELECT Nom, Jour, COUNT(Jour) as Occurence
@@ -36,6 +39,7 @@ FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu from Repartition as C JOIN Activi
 WHERE Ville=Lieu
 
 /*q8*/
+
 SELECT Activites,effectif FROM (SELECT GROUP_CONCAT(Theme) AS Activites,effectif,COUNT(effectif) AS ce FROM
 (SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
 SELECT ActID,COUNT(ElevID) as effectif FROM Repartition
@@ -44,6 +48,7 @@ GROUP BY effectif) AS G WHERE G.ce >1
 
 
 /*q9*/
+
 select ActID, LENGTH(GROUP_CONCAT(ElevID)) as nb_eleve
 from repartition
 GROUP by ActID  
@@ -51,11 +56,16 @@ HAVING nb_eleve = (SELECT MAX(len) FROM (select ActID, LENGTH(GROUP_CONCAT(ElevI
 
  
 /*q10*/
+
 SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
 SELECT ActID,COUNT(ElevID) as effectif FROM Repartition
 GROUP BY ActID ) AS B ON A.ActID=B.ActID  ORDER BY effectif DESC, A.ActID
+SELECT Nom,jour,Theme
+FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu,Theme from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
+WHERE Ville=Lieu
 
 /*q11*/
+
 SELECT Enseignant
 from classes as C 
 JOIN (SELECT ClassID,COUNT(ClassID) as effectif FROM eleves GROUP BY ClassID ) as D

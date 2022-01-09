@@ -36,14 +36,11 @@ FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu from Repartition as C JOIN Activi
 WHERE Ville=Lieu
 
 /*q8*/
-<<<<<<< HEAD
 
 /*   Par jointure entre Activites et Repartition on donnes les tables des effectifs de chaques activités, 
 puis on groupe la table par effectif pour avoir les activités de même effectif,avec un COUNT pour connaitre le nombre d'activités de même effectif, 
 puis on choisit celle qui sont plus d'une de même effectif. */
 
-=======
->>>>>>> 2a93a257f9ac37c2658b370042346376e73900cf
 SELECT Activites,effectif FROM (SELECT GROUP_CONCAT(Theme) AS Activites,effectif,COUNT(effectif) AS ce FROM
 (SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
 SELECT ActID,COUNT(ElevID) as effen veut les activitésctif FROM Repartition

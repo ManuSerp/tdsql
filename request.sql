@@ -44,7 +44,8 @@ GROUP BY effectif) AS G WHERE G.ce >1
 
 
 /*q9*/
-SELECT a1,a2 FROM(
+SELECT bf2.Theme,bf3.Theme FROM
+(SELECT a1,a2 FROM(
 SELECT T1.ActID as a1, T2.ActID as a2, COUNT(T1.ElevID) as nb
 FROM (SELECT ElevID,ActID FROM repartition ) AS T1 ,(SELECT ElevID,ActID FROM repartition )AS T2 WHERE T1.ElevID=T2.ElevID
 GROUP BY T1.ActID,T2.ActID 
@@ -54,9 +55,10 @@ SELECT T1.ActID as a1, T2.ActID as a2, COUNT(T1.ElevID) as nb
 FROM (SELECT ElevID,ActID FROM repartition ) AS T1 ,(SELECT ElevID,ActID FROM repartition )AS T2 WHERE T1.ElevID=T2.ElevID
 GROUP BY T1.ActID,T2.ActID 
 HAVING a1!=a2) as temp1)
-HAVING a1<a2
+HAVING a1<a2) as bf1 JOIN Activites as bf2 ON bf1.a1=bf2.ActID JOIN Activites as bf3 ON bf1.a2=bf3.ActID
 
-/*On calcule le nombre d'élève partagé entre deux activité et on selectionne les pairs qui en ont le plus*/
+
+/*On calcule le nombre d'élève partagé entre deux activité et on selectionne les pairs qui en ont le plus, puis on cherche le thème correspondant*/
 
 
  
@@ -102,6 +104,7 @@ SELECT Lieu, COUNT(ElevID)/(SELECT COUNT(ActID)
 FROM Repartition) from Activites NATURAL JOIN Repartition GROUP by Lieu
  
 /*q16*/
+SELECT bf2.Nom as X,bf3.Nom as Y FROM(
 SELECT DISTINCT b1.X, b2.Y FROM(
 (SELECT T1.ElevID as X,T2.ElevID as Y
 from (SELECT ActID,ElevID from Repartition ) as T1 INNER JOIN (SELECT ActID,ElevID from Repartition ) as T2 ON T1.ActID=T2.ActID
@@ -111,9 +114,11 @@ INNER JOIN(
 SELECT e1.ElevID as X,e2.ElevID as Y FROM Eleves as e1, Eleves as e2
 WHERE e1.ClassID!=e2.ClassID
 ) as b2 WHERE b1.X=b2.X and b1.Y=b2.Y
-HAVING X<Y
+HAVING X<Y) as bf JOIN Eleves as bf2 ON bf.X=bf2.ElevID  JOIN Eleves as bf3 ON bf.Y=bf3.ElevID 
 
-/*On cherche les couples d'élèves qui ne sont pas dans la meme classe, ceux qui ont une activité en commun, puis on réalise une intersection entre les deux tables*/
+
+/*On cherche les couples d'élèves qui ne sont pas dans la meme classe, ceux qui ont une activité en commun,
+ puis on réalise une intersection entre les deux tables, puis on cherche les noms correspondants*/
 
 
 /*q17*/

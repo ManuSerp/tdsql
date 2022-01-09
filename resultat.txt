@@ -35,8 +35,8 @@ PAF,Foot 2
 
 
 /*q9*/
-a1 a2
-1 2
+Theme Theme
+Natation PAF
 
 
  
@@ -93,16 +93,18 @@ Stade    0.2727
  
 /*q16*/
 
+
 X Y
-1 4
-2 4
-2 5
-2 6
-3 4
-3 5
-3 6
-4 6
-5 6
+Raoul Gregoire
+Martin Gregoire
+Martin Paul
+Martin Robert
+Augustin Gregoire
+Augustin Paul
+Augustin Robert
+Gregoire Robert
+Paul Robert
+
 
 /*q17*/
 

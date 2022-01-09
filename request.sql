@@ -54,6 +54,7 @@ SELECT T1.ActID as a1, T2.ActID as a2, COUNT(T1.ElevID) as nb
 FROM (SELECT ElevID,ActID FROM repartition ) AS T1 ,(SELECT ElevID,ActID FROM repartition )AS T2 WHERE T1.ElevID=T2.ElevID
 GROUP BY T1.ActID,T2.ActID 
 HAVING a1!=a2) as temp1)
+HAVING a1<a2
 
 /*On calcule le nombre d'élève partagé entre deux activité et on selectionne les pairs qui en ont le plus*/
 
@@ -101,13 +102,18 @@ SELECT Lieu, COUNT(ElevID)/(SELECT COUNT(ActID)
 FROM Repartition) from Activites NATURAL JOIN Repartition GROUP by Lieu
  
 /*q16*/
+SELECT DISTINCT b1.X, b2.Y FROM(
 (SELECT T1.ElevID as X,T2.ElevID as Y
 from (SELECT ActID,ElevID from Repartition ) as T1 INNER JOIN (SELECT ActID,ElevID from Repartition ) as T2 ON T1.ActID=T2.ActID
-WHERE T1.ElevID!=T2.ElevID)
+WHERE T1.ElevID!=T2.ElevID) as b1
+)
+INNER JOIN(
+SELECT e1.ElevID as X,e2.ElevID as Y FROM Eleves as e1, Eleves as e2
+WHERE e1.ClassID!=e2.ClassID
+) as b2 WHERE b1.X=b2.X and b1.Y=b2.Y
+HAVING X<Y
 
-
-/*On réalise une intersection sur les actID, puis on trie le résultat pour éviter les doublons types X,Y =Y,X*/
-
+/*On cherche les couples d'élèves qui ne sont pas dans la meme classe, ceux qui ont une activité en commun, puis on réalise une intersection entre les deux tables*/
 
 
 /*q17*/

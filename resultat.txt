@@ -20,18 +20,14 @@ Raoul
 
 /*q6*/
 
-SELECT Nom FROM
-(SELECT Nom,COUNT(Jour) as Presence FROM
-(SELECT Nom,Jour
-FROM Eleves as Z JOIN (SELECT ElevID,Jour from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
-GROUP BY Nom,Jour) AS A
-GROUP BY Nom) AS B WHERE B.Presence = (SELECT COUNT(DISTINCT Jour) From Activites)
+Eleves
+Robert
 
 /*q7*/
 
-SELECT DISTINCT Nom
-FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
-WHERE Ville=Lieu
+Eleves
+Robin
+Gregoire
 
 /*q8*/
 Activites effectif
@@ -56,9 +52,14 @@ Maria
  
 /*q12*/
 
-SELECT Theme,MIN(Age) as Min,MAX(Age) as Max, AVG(Age) as Moyenne, -MIN(Age)+MAX(Age) as Amplitude
-    
-GROUP BY Theme
+
+Theme	Min	Max	Moyenne	Amplitude	
+Rugby	13	17	15.0000	4	
+Foot	9	13	11.0000	4	
+Natation	9	17	14.2500	8	
+PAF	16	17	16.5000	1	
+Pétanque	17	17	17.0000	0	
+Basket	17	17	17.0000	0	
 
 /*q13*/
 Theme Ville
@@ -77,6 +78,10 @@ Rugby Paris
 /*q14*/
 
 
+
+Nom	Jour	Theme	
+Robin	1	Rugby	
+Gregoire	3	Natation	
 
 
 /*q15*/

@@ -1,19 +1,16 @@
 /*q3*/
-/* On groupe les élèves par ClassID pour obtenir l'effectif de chaque classes puis ont fait une jointure pour obtenir le professeur de chaque classes. */
 
 SELECT Enseignant, ListeEleves 
 FROM Classes AS C JOIN (SELECT ClassID, GROUP_CONCAT(Nom) as ListeEleves FROM Eleves GROUP BY ClassID) AS T 
 ON C.ClassID=T.ClassID
 
 /*q4*/
-/* on groupe les eleves par activités via une jointure entre Repartition et Activites puis on groupe le nombre d'élèves et le bus par jours*/ 
+
 SELECT Jour, GROUP_CONCAT('Bus n°',Bus,' : ',  Nb,' élèves') AS ListeDesBus 
 FROM (SELECT ActID, COUNT(ElevID) as Nb FROM Repartition GROUP BY ActID) as C JOIN Activites AS A ON C.ActID=A.ActID
 GROUP BY Jour
 
 /*q5*/
-/* on fait une jointure de élèves et Repartition puis une jointure sur Activites
-ensuite on choisit les noms parmis les noms et jours des élèves groupés par jours et noms avec la condition COUNT(jours)>1 */
 
 SELECT DISTINCT Nom As Eleves FROM
 (SELECT Nom, Jour, COUNT(Jour) as Occurence
@@ -22,35 +19,31 @@ GROUP BY Nom,Jour) AS A WHERE A.Occurence > 1
 
 
 /*q6*/
-/*
-On fait une jointure sur toutes les tables puis on groupe les noms en comptant les jours distincts pour obtenir
-le nombre de jours d'activités pour chaques personnes. Ensuite on selectionne les noms qui font aux moins un nombre d'activités égale au nombre de jours où il y a 
-des activités.
-
-*/
 
 SELECT Nom FROM
-(SELECT Nom,COUNT(DISTINCT Jour) as Presence FROM
+(SELECT Nom,COUNT(Jour) as Presence FROM
 (SELECT Nom,Jour
-FROM Eleves as Z JOIN (SELECT ElevID,Jour from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID) AS A
+FROM Eleves as Z JOIN (SELECT ElevID,Jour from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
+GROUP BY Nom,Jour) AS A
 GROUP BY Nom) AS B WHERE B.Presence = (SELECT COUNT(DISTINCT Jour) From Activites)
 
 
 
 /*q7*/
 
-/* On fait une jointure de toutes les bases puis on selectionne les nom où ville de résidence correspond au lieu de l'activité. */
-
 SELECT DISTINCT Nom
 FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
 WHERE Ville=Lieu
 
 /*q8*/
+<<<<<<< HEAD
 
 /*   Par jointure entre Activites et Repartition on donnes les tables des effectifs de chaques activités, 
 puis on groupe la table par effectif pour avoir les activités de même effectif,avec un COUNT pour connaitre le nombre d'activités de même effectif, 
 puis on choisit celle qui sont plus d'une de même effectif. */
 
+=======
+>>>>>>> 2a93a257f9ac37c2658b370042346376e73900cf
 SELECT Activites,effectif FROM (SELECT GROUP_CONCAT(Theme) AS Activites,effectif,COUNT(effectif) AS ce FROM
 (SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
 SELECT ActID,COUNT(ElevID) as effen veut les activitésctif FROM Repartition
@@ -59,7 +52,8 @@ GROUP BY effectif) AS G WHERE G.ce >1
 
 
 /*q9*/
-SELECT a1,a2 FROM(
+SELECT bf2.Theme,bf3.Theme FROM
+(SELECT a1,a2 FROM(
 SELECT T1.ActID as a1, T2.ActID as a2, COUNT(T1.ElevID) as nb
 FROM (SELECT ElevID,ActID FROM repartition ) AS T1 ,(SELECT ElevID,ActID FROM repartition )AS T2 WHERE T1.ElevID=T2.ElevID
 GROUP BY T1.ActID,T2.ActID 
@@ -69,9 +63,10 @@ SELECT T1.ActID as a1, T2.ActID as a2, COUNT(T1.ElevID) as nb
 FROM (SELECT ElevID,ActID FROM repartition ) AS T1 ,(SELECT ElevID,ActID FROM repartition )AS T2 WHERE T1.ElevID=T2.ElevID
 GROUP BY T1.ActID,T2.ActID 
 HAVING a1!=a2) as temp1)
-HAVING a1<a2
+HAVING a1<a2) as bf1 JOIN Activites as bf2 ON bf1.a1=bf2.ActID JOIN Activites as bf3 ON bf1.a2=bf3.ActID
 
-/*On calcule le nombre d'élève partagé entre deux activité et on selectionne les pairs qui en ont le plus*/
+
+/*On calcule le nombre d'élève partagé entre deux activité et on selectionne les pairs qui en ont le plus, puis on cherche le thème correspondant*/
 
 
  
@@ -83,7 +78,6 @@ GROUP BY ActID ) AS B ON A.ActID=B.ActID  ORDER BY effectif DESC, A.ActID
 
 
 /*q11*/
-
 SELECT Enseignant
 from classes as C 
 JOIN (SELECT ClassID,COUNT(ClassID) as effectif FROM eleves GROUP BY ClassID ) as D
@@ -120,6 +114,7 @@ SELECT Lieu, COUNT(ElevID)/(SELECT COUNT(ActID)
 FROM Repartition) from Activites NATURAL JOIN Repartition GROUP by Lieu
  
 /*q16*/
+SELECT bf2.Nom as X,bf3.Nom as Y FROM(
 SELECT DISTINCT b1.X, b2.Y FROM(
 (SELECT T1.ElevID as X,T2.ElevID as Y
 from (SELECT ActID,ElevID from Repartition ) as T1 INNER JOIN (SELECT ActID,ElevID from Repartition ) as T2 ON T1.ActID=T2.ActID
@@ -129,9 +124,11 @@ INNER JOIN(
 SELECT e1.ElevID as X,e2.ElevID as Y FROM Eleves as e1, Eleves as e2
 WHERE e1.ClassID!=e2.ClassID
 ) as b2 WHERE b1.X=b2.X and b1.Y=b2.Y
-HAVING X<Y
+HAVING X<Y) as bf JOIN Eleves as bf2 ON bf.X=bf2.ElevID  JOIN Eleves as bf3 ON bf.Y=bf3.ElevID 
 
-/*On cherche les couples d'élèves qui ne sont pas dans la meme classe, ceux qui ont une activité en commun, puis on réalise une intersection entre les deux tables*/
+
+/*On cherche les couples d'élèves qui ne sont pas dans la meme classe, ceux qui ont une activité en commun,
+ puis on réalise une intersection entre les deux tables, puis on cherche les noms correspondants*/
 
 
 /*q17*/

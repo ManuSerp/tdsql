@@ -1,21 +1,22 @@
 /*q3*/
 
-SELECT Enseignant, ListeEleves 
-FROM Classes AS C JOIN (SELECT ClassID, GROUP_CONCAT(Nom) as ListeEleves FROM Eleves GROUP BY ClassID) AS T 
-ON C.ClassID=T.ClassID
+Enseignant ListeEleves
+Maria Robin,Raoul,Robert
+Cotillon Martin,Augustin
+Dumont Gregoire,Paul
 
 /*q4*/
 
-SELECT Jour, GROUP_CONCAT('Bus n°',Bus,' : ',  Nb,' élèves') AS ListeDesBus 
-FROM (SELECT ActID, COUNT(ElevID) as Nb FROM Repartition GROUP BY ActID) as C JOIN Activites AS A ON C.ActID=A.ActID
-GROUP BY Jour
+Jour ListeDesBus
+1 Bus n°1 : 3 élèves,Bus n°2 : 2 élèves
+3 Bus n°2 : 4 élèves
+6 Bus n°1 : 2 élèves
 
 /*q5*/
 
-SELECT DISTINCT Nom As Eleves FROM
-(SELECT Nom, Jour, COUNT(Jour) as Occurence
-FROM Eleves as Z JOIN (SELECT ElevID,Jour from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
-GROUP BY Nom,Jour) AS A WHERE A.Occurence > 1
+
+Eleves
+Raoul
 
 /*q6*/
 
@@ -33,31 +34,25 @@ FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu from Repartition as C JOIN Activi
 WHERE Ville=Lieu
 
 /*q8*/
-SELECT Activites,effectif FROM (SELECT GROUP_CONCAT(Theme) AS Activites,effectif,COUNT(effectif) AS ce FROM
-(SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
-SELECT ActID,COUNT(ElevID) as effectif FROM Repartition
-GROUP BY ActID) AS B ON A.ActID=B.ActID) AS F
-GROUP BY effectif) AS G WHERE G.ce >1
+Activites effectif
+PAF,Foot 2
 
 
 /*q9*/
-select ActID, LENGTH(GROUP_CONCAT(ElevID)) as nb_eleve
-from repartition
-GROUP by ActID  
-HAVING nb_eleve = (SELECT MAX(len) FROM (select ActID, LENGTH(GROUP_CONCAT(ElevID)) as len from repartition  GROUP by ActID   ) as T) 
+ActID nb_eleve
+1    7
 
  
 /*q10*/
-SELECT Theme, effectif FROM (SELECT ActID,Theme FROM Activites) AS A JOIN (
-SELECT ActID,COUNT(ElevID) as effectif FROM Repartition
-GROUP BY ActID ) AS B ON A.ActID=B.ActID  ORDER BY effectif DESC, A.ActID
+Theme effectif 
+Natation 4 
+Rugby 3
+PAF 2
+Foot 2
 
 /*q11*/
-SELECT Enseignant
-from classes as C 
-JOIN (SELECT ClassID,COUNT(ClassID) as effectif FROM eleves GROUP BY ClassID ) as D
-on C.ClassID=D.ClassID
-where effectif > (select AVG(ListeEleves) from (SELECT COUNT(ClassID) as ListeEleves FROM Eleves GROUP BY ClassID) as A)
+Enseignant
+Maria
 
 
  
@@ -68,20 +63,22 @@ SELECT Theme,MIN(Age) as Min,MAX(Age) as Max, AVG(Age) as Moyenne, -MIN(Age)+MAX
 GROUP BY Theme
 
 /*q13*/
+Theme Ville
+Natation Amiens
+Natation Blois
+Natation Le Mans
+PAF Le Mans
+Rugby Le Mans
+PAF Marseille
+Rugby Metz
+Foot Paris
+Natation Paris
+Rugby Paris
 
-SELECT Theme, Ville FROM 
-(SELECT Ville, Theme,COUNT(Z.ElevID) as hab
-FROM Eleves as Z JOIN (SELECT ElevID,Theme from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
-GROUP BY Ville, Theme) as tb
-WHERE hab = (SELECT MAX(hab) FROM (SELECT Theme,COUNT(Z.ElevID) as hab
-FROM Eleves as Z JOIN (SELECT ElevID,Theme from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
-GROUP BY Ville, Theme)as m WHERE m.Theme=tb.Theme)
 
 /*q14*/
 
-SELECT Nom,jour,Theme
-FROM Eleves as Z JOIN (SELECT ElevID,Jour,Lieu,Theme from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
-WHERE Ville=Lieu
+
 
 
 /*q15*/
@@ -90,16 +87,9 @@ SELECT Lieu, COUNT(ElevID)/(SELECT COUNT(ActID) FROM repartition) from activites
 /*q16*/
 
 
+
 /*q17*/
 
-
-SELECT cleff.ClassID,Theme FROM
-(SELECT ClassID, Theme, eff FROM 
-(SELECT  ClassID,ActID,COUNT(A.ElevID) as eff
-FROM Eleves AS A JOIN Repartition AS B ON A.ElevID=B.ElevID
-GROUP BY ClassID,ActID) as effect JOIN Activites AS K ON effect.ActID=K.ActID) as acteff
-JOIN
-(SELECT ClassID,COUNT(ElevID) as classe_effectif FROM Eleves
-GROUP BY ClassID) as cleff
-ON acteff.ClassID = cleff.ClassID
-WHERE eff=classe_effectif
+ClassID Theme
+0 Rugby 
+1 Natation

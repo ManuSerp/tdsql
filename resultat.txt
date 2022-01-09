@@ -61,31 +61,34 @@ Maria
 /*q12*/
 
 
+
+
 Theme	Min	Max	Moyenne	Amplitude	
 Basket	17	17	17.0000	0	
-Foot	9	13	11.0000	4
-Natation 9	17	14.600	8	
-PAF		9 17	14.000	1		
+Foot	9	13	11.0000	4	
+Natation	9	17	14.2500	8	
+PAF	16	17	16.5000	1	
 Pétanque	17	17	17.0000	0	
 Rugby	13	17	15.0000	4	
 
 
 /*q13*/
-Theme Ville
-Natation Amiens
-Natation Blois
-Basket Le Mans
-Natation Le Mans
-PAF Le Mans
-Pétanque Le Mans
-Rugby Le Mans
-Natation Marseille
-PAF Marseille
-Rugby Metz
-Foot Paris
-Natation Paris
-PAF Paris
-Rugby Paris
+
+
+Theme	Ville	
+Natation	Amiens	
+Natation	Blois	
+Basket	Le Mans	
+Natation	Le Mans	
+PAF	Le Mans	
+Pétanque	Le Mans	
+Rugby	Le Mans	
+PAF	Marseille	
+Rugby	Metz	
+Foot	Paris	
+Natation	Paris	
+Rugby	Paris	
+
 
 
 /*q14*/
@@ -97,33 +100,33 @@ Gregoire	3	Natation
 
 
 /*q15*/
-Lieu COUNT(ElevID)/(SELECT COUNT(ActID) FROM Repartition)
-CityStadium 0.1333
-LaMeuh 0.2000
-Lyon 0.0667
-Marseille 0.0667
-Piscine 0.3333
-Stade 0.2000
+
+Lieu	COUNT(ElevID)/(SELECT COUNT(ActID) 
+FROM Repartition)	
+Amiens	0.1538	
+Lyon	0.0769	
+Marseille	0.2308	
+Metz	0.2308	
+Paris	0.3077	
+
  
 /*q16*/
 
 
-X Y
-Raoul Gregoire
-Martin Gregoire
-Martin Paul
-Martin Robert
-Augustin Gregoire
-Augustin Paul
-Augustin Robert
-Gregoire Robert
-Paul Robert
+X	Y	
+Raoul	Gregoire	
+Martin	Gregoire	
+Martin	Robert	
+Augustin	Gregoire	
+Augustin	Robert	
+Gregoire	Robert	
+Paul	Robert	
 
 
 /*q17*/
 
-ClassID Theme
-0 Rugby
-1 Natation
-2 PAF
-2 Natation 
+
+
+ClassID	Theme	
+0	Rugby	
+1	Natation	

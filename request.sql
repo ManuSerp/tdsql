@@ -17,6 +17,7 @@ SELECT DISTINCT Nom As Eleves FROM
 FROM Eleves as Z JOIN (SELECT ElevID,Jour from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
 GROUP BY Nom,Jour) AS A WHERE A.Occurence > 1
 
+
 /*q6*/
 
 SELECT Nom FROM
@@ -25,6 +26,8 @@ SELECT Nom FROM
 FROM Eleves as Z JOIN (SELECT ElevID,Jour from Repartition as C JOIN Activites AS A ON C.ActID=A.ActID) AS E ON Z.ElevID=E.ElevID
 GROUP BY Nom,Jour) AS A
 GROUP BY Nom) AS B WHERE B.Presence = (SELECT COUNT(DISTINCT Jour) From Activites)
+
+
 
 /*q7*/
 
@@ -85,7 +88,8 @@ WHERE Ville=Lieu
 
 
 /*q15*/
-SELECT Lieu, COUNT(ElevID)/(SELECT COUNT(ActID) FROM repartition) from activites join repartition on activites.ActID=repartition.ActID GROUP by Lieu
+SELECT Lieu, COUNT(ElevID)/(SELECT COUNT(ActID) 
+FROM Repartition) from Activites NATURAL JOIN Repartition GROUP by Lieu
  
 /*q16*/
 SELECT X,Y,nb FROM((
